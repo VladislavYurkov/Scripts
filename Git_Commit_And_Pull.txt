@@ -1,0 +1,5 @@
+git add .
+git commit -m "$1"
+branchName=$(git symbolic-ref --short HEAD)
+git push origin $branchName
+
