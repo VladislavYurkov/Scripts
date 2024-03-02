@@ -30,7 +30,10 @@ name_of_command()
 6. Перейдите в файл settings.json
 ![JSON](https://github.com/VladislavYurkov/Scripts/assets/104719530/0c03c5ae-1c8f-4028-adb2-19e0d6e0b6c0)
 7. Вставляем следующий текст в commands, как на скриншоте:
-![InJSON](https://github.com/VladislavYurkov/Scripts/assets/104719530/9ca02d58-7ab2-4d50-9042-17d08946c100)
+
+![изображение](https://github.com/VladislavYurkov/Scripts/assets/104719530/55b3ec97-3d35-4d9e-bd09-37c701fd5d9b)
+
+
 ```
 {
   "name": "new class",
