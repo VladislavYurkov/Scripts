@@ -65,3 +65,5 @@ end
 cat <<<"#include \"src/$className/$className.hpp\"
 $(<Tests.cpp)" >Tests.cpp
 
+cd ../..
+
