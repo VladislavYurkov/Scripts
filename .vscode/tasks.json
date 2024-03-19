@@ -1,0 +1,23 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "bazel-build-debug",
+            "type": "shell",
+            "command": "bazel build //src/main:cpp_app --config=debug ",
+            "group": "build"
+        },
+        {
+            "label": "bazel-build-release",
+            "type": "shell",
+            "command": "bazel build //src/main:cpp_app --config=release ",
+            "group": "build"
+        },
+        {
+            "label": "bazel-test",
+            "type": "shell",
+            "command": "bazel test //src/tests:all --test_output=all --nocache_test_results || [ $? -eq 3 ] && exit 0", 
+            "group": "test"
+        }
+    ]
+}

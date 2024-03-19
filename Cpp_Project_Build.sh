@@ -1,19 +1,7 @@
-#Создаёт базовый проект состоящий из main.cpp и файла тестов
+#Создаёт базовый проект состоящий из main.cpp
 #Также запускает сборку этого проекта в режиме Bazel Debug
-#ОСТОРОЖНО! Скрипт удаляет все файлы в папке проекта
 
-echo "To continue print 'yes'"
-
-read yes
-
-if [[ "$yes" == "yes" ]]; then
-
-
-
-rm -rf *
-rm -rf .*
-
-
+if [ ! -e MODULE.bazel ]; then
 cat << 'end' >> MODULE.bazel
 ## MODULE.bazel
 
@@ -25,7 +13,9 @@ module(
 )
 bazel_dep(name = "googletest", version = "1.14.0")
 end
+fi
 
+if [ ! -e .bazelrc ]; then
 cat << 'end' >> .bazelrc
 # Enable Bzlmod for every Bazel command
 
@@ -58,13 +48,21 @@ test --color=yes
 # build --cxxopt='-Werror=unused-variable'
 # test --cxxopt='-Werror=unused-variable'
 end
+fi
 
+if [ ! -e WORKSPACE ]; then
 touch WORKSPACE
+fi
 
+if [ ! -e src/ ]; then
 mkdir src
+fi
 
+if [ ! -e src/main ]; then
 mkdir src/main
+fi
 
+if [ ! -e src/main/BUILD ]; then
 cat << 'end' >> src/main/BUILD
 ## src/main/BUILD
 
@@ -72,22 +70,28 @@ cc_binary(
     name = "cpp_app",
     srcs = ["main.cpp"],
     deps = [
-
+        
     ],
 )
 end
+fi
 
+if [ ! -e src/main/main.cpp ]; then
 cat << end >> src/main/main.cpp
 int main()
 {
 	return 0;
 }
 end
+fi
 
+if [ ! -e .vscode ]; then
 mkdir .vscode
+fi
 
 cd .vscode
 
+if [ ! -e c_cpp_properties.json ]; then
 cat << 'end' >> c_cpp_properties.json
 {
   "configurations": [
@@ -105,7 +109,9 @@ cat << 'end' >> c_cpp_properties.json
   "version": 4
 }
 end
+fi
 
+if [ ! -e launch.json ]; then
 cat << 'end' >> launch.json
 {
     "version": "0.2.0",
@@ -160,7 +166,9 @@ cat << 'end' >> launch.json
     ]
 }
 end
+fi
 
+if [ ! -e tasks.json ]; then
 cat << 'end' >> tasks.json
 {
     "version": "2.0.0",
@@ -186,46 +194,8 @@ cat << 'end' >> tasks.json
     ]
 }
 end
-
-cd ../src
-
-mkdir tests
-
-cd tests
-
-cat << end >> Tests.cpp
-#include <stdexcept>
-#include <gtest/gtest.h>
-
-
-TEST(testCase, testName) 
-{
-    EXPECT_EQ(1, 1);
-}
-
-int main(int argc, char **argv) {
-    ::testing::InitGoogleTest(&argc, argv);
-    return RUN_ALL_TESTS();
-}
-end
-
-cat << end >> BUILD
-## src/tests/BUILD
-
-cc_test(
-    name = "tests",
-    srcs = ["Tests.cpp"],
-    deps = [
-        "@googletest//:gtest_main",
-    ]
-)
-end
-
-cd ../..
-
-bazel build //src/main:cpp_app
-
-echo Done!
-
 fi
 
+cd ..
+
+bazel build //src/main:cpp_app

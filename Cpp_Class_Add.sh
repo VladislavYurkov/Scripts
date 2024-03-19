@@ -6,6 +6,11 @@ echo "Enter class name: "
 
 read className
 
+if [ -e $className/ ]
+then
+echo "Класс с таким именем уже существует"
+cd ..
+else
 mkdir "$className"
 
 cd "$className"
@@ -51,19 +56,5 @@ end
 cat <<<"#include \"src/$className/$className.hpp\"
 $(<main.cpp)" >main.cpp
 
-cd ../tests
-
-sed -i '$d' BUILD
-sed -i '$d' BUILD
-
-cat << end >> BUILD
-        "//src/$className:$className",
-    ],
-)
-end
-
-cat <<<"#include \"src/$className/$className.hpp\"
-$(<Tests.cpp)" >Tests.cpp
-
 cd ../..
-
+fi

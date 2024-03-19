@@ -1,4 +1,7 @@
-echo "Please, enter parent class name:"
+#Добавляет в проект класс-потомок
+#Родительким классом для него может быть только один класс
+
+echo "Введите имя родительского класса: "
 
 read parentClassName
 
@@ -9,8 +12,15 @@ then
         if [ -e src/$parentClassName/$parentClassName.hpp ]
         then
 cd src
-echo "Enter class name: "
+echo "Введите имя класса: "
 read className
+
+if [ -e $className/ ]
+then
+echo "Класс с таким именем уже существует"
+cd ..
+else
+
 mkdir "$className"
 cd "$className"
 
@@ -23,6 +33,8 @@ upperName="${className^^}"
 cat << end >> $className.hpp
 #ifndef ${upperName}_HPP
 #define ${upperName}_HPP
+#include "src/$parentClassName/$parentClassName.hpp"
+
 
 #endif
 end
@@ -41,6 +53,8 @@ cc_library(
 )
 end
 
+cd ../main
+
 sed -i '$d' BUILD
 sed -i '$d' BUILD
 
@@ -54,13 +68,13 @@ cat <<<"#include \"src/$className/$className.hpp\"
 $(<main.cpp)" >main.cpp
 
 
-
+fi
         else
-        echo "There is no class with that name"
+        echo "Класса с таким именем не существует"
         fi
     else
-    echo "There is no class with that name"
+    echo "Класса с таким именем не существует"
     fi
 else
-echo "There is no class with that name"
+echo "Класса с таким именем не существует"
 fi

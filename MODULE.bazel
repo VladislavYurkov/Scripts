@@ -1,0 +1,9 @@
+## MODULE.bazel
+
+module(
+    name = "cpp_app",
+    repo_name = "cpp_app",
+    version = "1.0",
+    compatibility_level = 1
+)
+bazel_dep(name = "googletest", version = "1.14.0")
