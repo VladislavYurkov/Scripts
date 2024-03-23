@@ -1,5 +1,10 @@
 #Добавляет класс с выбранным названием и добавляет все зависимости для Bazel
 
+if [ -e src/ ]
+then
+echo "Вы ещё не создали проект"
+else
+
 cd src
 
 echo "Enter class name: "
@@ -57,4 +62,6 @@ cat <<<"#include \"src/$className/$className.hpp\"
 $(<main.cpp)" >main.cpp
 
 cd ../..
+fi
+
 fi
