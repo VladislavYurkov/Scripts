@@ -18,6 +18,7 @@ echo ""
 else
 sed -i '$d' $settings
 cat << end >> $settings
+	,
     "actionButtons": {
         "commands": [
         ],

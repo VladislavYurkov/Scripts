@@ -2,8 +2,6 @@
 
 if [ -e src/ ]
 then
-echo "Вы ещё не создали проект"
-else
 
 cd src
 
@@ -64,4 +62,6 @@ $(<main.cpp)" >main.cpp
 cd ../..
 fi
 
+else
+echo "Вы ещё не создали проект"
 fi

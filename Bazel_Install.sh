@@ -1,4 +1,4 @@
-sudo apt update && sudo apt install gcc g++ -y
+sudo apt update && sudo apt install clang gcc g++ -y
 
 sudo apt install apt-transport-https curl gnupg -y
 
